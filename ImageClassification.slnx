@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ImageClassification.ML.Predict/ImageClassification.ML.Predict.csproj" />
+  <Project Path="ImageClassification.ML.Trainer/ImageClassification.ML.Trainer.csproj" />
+</Solution>

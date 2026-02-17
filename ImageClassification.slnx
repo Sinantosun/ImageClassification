@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="ImageClassification.ML.Predict/ImageClassification.ML.Predict.csproj" />
   <Project Path="ImageClassification.ML.Trainer/ImageClassification.ML.Trainer.csproj" />
+  <Project Path="ImageClassification.Shared/ImageClassification.Shared.csproj" Id="2094f48a-b745-4b04-9970-b35745d0007e" />
 </Solution>

@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\ImageClassification.Shared\ImageClassification.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ImageClassification.Shared\ImageClassification.Shared.csproj" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

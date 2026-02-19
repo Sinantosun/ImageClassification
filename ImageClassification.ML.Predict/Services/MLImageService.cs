@@ -36,7 +36,7 @@ namespace ImageClassification.ML.Predict.Services
             }
             else if (score < 85f)
             {
-                var result = Result($"Bu görseli tanıyamadım.. Ama %{score} İhtimalle Bu Bir {prediction.Prediction} Olabilir.", score);
+                var result = Result($"Bu görseli tanıyamadım..", score);
                 return BaseResult<PredictionResult>.Success(result);
             }
             else

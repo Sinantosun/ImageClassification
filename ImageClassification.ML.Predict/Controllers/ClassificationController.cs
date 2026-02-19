@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.RateLimiting;
 [Route("api/[controller]")]
 public class ClassificationController(IMLImageService _service) : ControllerBase
 {
+    [RequestFormLimits(MultipartBodyLengthLimit = 5000000)]
     [HttpPost("predict")]
     public async Task<IActionResult> Predict(IFormFile? file)
     {

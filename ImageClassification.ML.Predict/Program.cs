@@ -9,6 +9,7 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 app.UseMiddleware<CustomErrorMiddleware>();
+app.UseMiddleware<RequestSizeMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseCors("DefaultPolicy");

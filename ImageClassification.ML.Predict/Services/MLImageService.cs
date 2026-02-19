@@ -1,5 +1,6 @@
 ﻿using ImageClassification.ML.Predict.Base;
 using ImageClassification.ML.Predict.Models;
+using ImageClassification.ML.Predict.Validators;
 using ImageClassification.Shared.Models;
 using Microsoft.Extensions.ML;
 
@@ -15,8 +16,11 @@ namespace ImageClassification.ML.Predict.Services
         }
         public async Task<BaseResult<PredictionResult>> PredictAsync(IFormFile file)
         {
-            if (file == null || file.Length == 0)
-                return BaseResult<PredictionResult>.Fail("Lütfen Dosya Seçiniz.");
+            var imageValidator = new ImageValidator();
+            var validatorResult = imageValidator.Validate(file);
+            if (!validatorResult.IsSuccess)
+                return validatorResult;
+
 
             byte[] imageBytes = await GetImageBytes(file);
 

@@ -1,4 +1,5 @@
-﻿using ImageClassification.ML.Trainer.Models;
+﻿using ImageClassification.Shared.Models;
+using ImageClassification.Shared.Settings;
 using Microsoft.ML;
 using Microsoft.ML.Vision;
 
@@ -6,28 +7,41 @@ namespace ImageClassification.ML.Trainer.Services
 {
     public class TrainingService
     {
-        public void TrainModel()
+        public void TrainModel(string path)
         {
-            var mlContext = new MLContext();
-
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "Data");
-            var data = LoadDataFromFreeText(mlContext, path);
-
-            var pipeline = mlContext.Transforms.Conversion.MapValueToKey("LabelAsKey", "Label")
-            .Append(mlContext.MulticlassClassification.Trainers.ImageClassification(new ImageClassificationTrainer.Options
+            try
             {
-                FeatureColumnName = "Image",
-                LabelColumnName = "LabelAsKey",
-                Arch = ImageClassificationTrainer.Architecture.MobilenetV2,
-            }))
-            .Append(mlContext.Transforms.Conversion
-           .MapKeyToValue(
-               outputColumnName: "PredictedLabel",
-               inputColumnName: "PredictedLabel"));
+                var mlContext = new MLContext();
 
-            var model = pipeline.Fit(data);
+                if (!Directory.Exists(path))
+                {
+                    Console.WriteLine("Verilen klasör bulunamadı.");
+                    return;
+                }
 
-            mlContext.Model.Save(model, data.Schema, "model.zip");
+                var data = LoadDataFromFreeText(mlContext, path);
+
+                var pipeline = mlContext.Transforms.Conversion.MapValueToKey("LabelAsKey", "Label")
+                .Append(mlContext.MulticlassClassification.Trainers.ImageClassification(new ImageClassificationTrainer.Options
+                {
+                    FeatureColumnName = "Image",
+                    LabelColumnName = "LabelAsKey",
+                    Arch = ImageClassificationTrainer.Architecture.MobilenetV2,
+                }))
+                .Append(mlContext.Transforms.Conversion
+               .MapKeyToValue(
+                   outputColumnName: "PredictedLabel",
+                   inputColumnName: "PredictedLabel"));
+
+                var model = pipeline.Fit(data);
+                string outputPath = ModelStorageConfig.ModelDirectory;
+                mlContext.Model.Save(model, data.Schema, Path.Combine(outputPath, "model.zip"));
+                Console.WriteLine("Eğitim tamamlandı zip dosyası hazırlandı..");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Eğitim aşamasında bir hata oluştu.");
+            }
         }
         private IDataView LoadDataFromFreeText(MLContext mlContext, string folderPath)
         {
@@ -39,8 +53,7 @@ namespace ImageClassification.ML.Trainer.Services
             {
                 var label = Path.GetFileName(directory);
 
-                var files = Directory.GetFiles(directory, "*.*")
-                                     .Where(file => file.EndsWith(".jpg") || file.EndsWith(".png") || file.EndsWith(".jpeg"));
+                var files = Directory.GetFiles(directory, "*.*").Where(file => file.EndsWith(".jpg") || file.EndsWith(".png") || file.EndsWith(".jpeg"));
 
                 foreach (var file in files)
                 {

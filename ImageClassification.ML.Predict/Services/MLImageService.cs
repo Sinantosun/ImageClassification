@@ -1,5 +1,6 @@
 ﻿using ImageClassification.ML.Predict.Base;
 using ImageClassification.ML.Predict.Models;
+using ImageClassification.Shared.Models;
 using Microsoft.Extensions.ML;
 
 namespace ImageClassification.ML.Predict.Services

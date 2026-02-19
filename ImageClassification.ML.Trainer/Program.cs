@@ -1,7 +1,12 @@
 ﻿using ImageClassification.ML.Trainer.Services;
 
 var service = new TrainingService();
-Console.WriteLine("Train Başladı.");
-service.TrainModel();
-Console.WriteLine("Eğitim tamamlandı zip dosyası hazırlandı..");
+Console.Write("Eğitim İçin Lütfen Veri Setinin Yolunu Yapıştırın: ");
+string path = Console.ReadLine();
+if (string.IsNullOrEmpty(path))
+{
+    Console.WriteLine("Lütfen veri setinin yolunu yapıştırın.");
+    return;
+}
+service.TrainModel(path);
 

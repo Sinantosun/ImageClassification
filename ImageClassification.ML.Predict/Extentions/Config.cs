@@ -1,6 +1,8 @@
 ﻿using ImageClassification.ML.Predict.Base;
 using ImageClassification.ML.Predict.Models;
 using ImageClassification.ML.Predict.Services;
+using ImageClassification.Shared.Models;
+using ImageClassification.Shared.Settings;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.ML;
 
@@ -33,8 +35,8 @@ namespace ImageClassification.ML.Predict.Extentions
                     await context.HttpContext.Response.WriteAsJsonAsync(response);
                 };
             });
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "MLModel", "model.zip");
-            services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile(path, watchForChanges: true);
+            var path = Path.Combine(ModelStorageConfig.ModelDirectory, "model.zip");
+            services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile(path, watchForChanges: true); //watchForChanges production da önerilmez.
             services.AddTransient<IMLImageService, MLImageService>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

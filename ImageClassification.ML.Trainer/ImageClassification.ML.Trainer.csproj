@@ -11,8 +11,4 @@
     <ProjectReference Include="..\ImageClassification.Shared\ImageClassification.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>

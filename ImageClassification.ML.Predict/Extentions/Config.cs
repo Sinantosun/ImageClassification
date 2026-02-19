@@ -37,7 +37,7 @@ namespace ImageClassification.ML.Predict.Extentions
             });
             var path = Path.Combine(ModelStorageConfig.ModelDirectory, "model.zip");
             services.AddPredictionEnginePool<ModelInput, ModelOutput>().FromFile(path, watchForChanges: true); //watchForChanges production da önerilmez.
-            services.AddTransient<IMLImageService, MLImageService>();
+            services.AddSingleton<IMLImageService, MLImageService>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }

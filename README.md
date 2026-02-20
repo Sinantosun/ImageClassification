@@ -19,19 +19,19 @@ Proje Mimarisi
 
 Proje, sorumlulukların net ayrılması için üç ana parçadan oluşur:
 
-🔹 ImageClassification.Shared: Ortak modeller (ModelInput) ve konfigürasyonlar (ModelStorageConfig) burada bulunur.
+- ImageClassification.Shared: Ortak modeller (ModelInput) ve konfigürasyonlar (ModelStorageConfig) burada bulunur.
 
-🔹 ImageClassification.ML.Trainer: Console uygulamasıdır. Data klasörünü tarar, alt klasörleri etiket (label) olarak kullanır ve MobilenetV2 (Transfer Learning) ile modeli eğitip .zip olarak kaydeder.
+- ImageClassification.ML.Trainer: Console uygulamasıdır. Data klasörünü tarar, alt klasörleri etiket (label) olarak kullanır ve MobilenetV2 (Transfer Learning) ile modeli eğitip .zip olarak kaydeder.
 
-🔹 ImageClassification.ML.Predict: Web API projesidir. PredictionEnginePool kullanarak yüksek performanslı tahminler gerçekleştirir.
+- ImageClassification.ML.Predict: Web API projesidir. PredictionEnginePool kullanarak yüksek performanslı tahminler gerçekleştirir.
 
 ------------------------------------------------------------------------
 Kullanılan Teknolojiler
-🔹 .NET 10
-🔹 ML.NET Vision
-🔹 TensorFlow	Arka plan hesaplama motoru (SciSharp)
-🔹ASP.NET Core
-🔹DI & Pool	PredictionEnginePool
+- .NET 10
+- ML.NET Vision
+- TensorFlow	Arka plan hesaplama motoru (SciSharp)
+- ASP.NET Core
+- DI & Pool	PredictionEnginePool
 
 ------------------------------------------------------------------------
 
@@ -39,10 +39,10 @@ Kullanılan Teknolojiler
 
 Klasör yapısı şu şekilde olmalıdır:
 
-Data/
-├── kedi/
-├── kopek/
-└── araba/
+- Data/
+- ├── kedi/
+- ├── kopek/
+- └── araba/
 
 Model, klasör isimlerini otomatik olarak etiket (label) olarak kabul eder. Eğitim sonrasında model dosyası merkezi bir dizine kaydedilir.
 
@@ -66,13 +66,13 @@ Response formatı:
 
 ImageValidator sınıfı ile şu kontroller yapılır:
 
-🔹 Dosya varlığı kontrolü.
+- Dosya varlığı kontrolü.
 
-🔹 Uzantı kontrolü (.jpg, .jpeg, .png).
+- Uzantı kontrolü (.jpg, .jpeg, .png).
 
-🔹 5MB maksimum dosya boyutu limiti.
+- 5MB maksimum dosya boyutu limiti.
 
-🔹 %85 altındaki güven skorlarında "Tanınamadı" uyarısı.
+- %85 altındaki güven skorlarında "Tanınamadı" uyarısı.
 
 ------------------------------------------------------------------------
 
